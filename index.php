@@ -19,7 +19,7 @@ function getPokemonData()
         'image' => $arrayapicontent['sprites']['front_default'],
         'types' => array_map(function($type) {return $type['type']['name'];},
         $arrayapicontent['types']),
-        'abilities'=> 
+        'abilities'=> //seguir aqui
     ];
     return $pokemonData;
 }
