@@ -1,56 +1,50 @@
 <?php
 
-
-function getPokemonData()
+function getPokemonData($randID)
 {
-    // 1) genera número aleatorio
-    $randID = rand(1,151);
-    // 2) lee el contenido de la api 
-    $apicontenttojson= file_get_contents("https://pokeapi.co/api/v2/pokemon/$randID");
-    // 3) lo decodifica
-    $arrayapicontent= json_decode($apicontenttojson,true);
-    // 4) Creo un objeto pokemon (me quedo sólo con los datos que necesito):
-    // nombre (name)
-    // imagen (sprites[front_default])
-    // tipos (types[]-> dentro de cada elemento [type][name])
+    $apicontentfromjson = file_get_contents("https://pokeapi.co/api/v2/pokemon/$randID");
+    $arrayapicontent = json_decode($apicontentfromjson, true);
     $pokemonData = [
         'name' => $arrayapicontent['name'],
-        'id' => $arrayapicontent['game_indices']["id"], 
+        'id' => $arrayapicontent['id'],
         'image' => $arrayapicontent['sprites']['front_default'],
-        'types' => array_map(function($type) {return $type['type']['name'];},
-        $arrayapicontent['types']),
-        'abilities'=> //seguir aqui
+        'types' => array_map(function ($type) {
+            return $type['type']['name'];
+        }, $arrayapicontent['types']),
+        'abilities' => array_map(function ($ability) {
+            return $ability['ability']['name'];
+        }, $arrayapicontent['abilities'])
     ];
     return $pokemonData;
 }
 
-$pokemon = getPokemonData();
-
-
-function renderCards($pokeArray)
-{
-    // recibe datos y genera el html
-    echo "<div class='carta'>";
+function renderCards() {
+    $randID = [rand(1, 151), rand(1, 151), rand(1, 151), rand(1, 151)];
+    echo "<div class='caja'>";
+    foreach ($randID as $id) {
+        $pokeArray = getPokemonData($id);
+        echo "<div class='carta'>";
         echo "<div class='img-container'>";
-            echo "<img src='" . $pokeArray['image'] . "' alt='" . $pokeArray['name'] . "'>";
+        echo "<img src='" . $pokeArray['image'] . "' alt='" . $pokeArray['name'] . "'>";
         echo "</div>";
         echo "<div class='datos'>";
-            echo "<h3>" . $pokeArray['name'] . "</h3>";
-            echo "<div class='tipos-pokemon'>";
-                foreach ($pokeArray['types'] as $type) {
-                    echo "<span>" . $type . "</span>";
-                }
-            echo "</div>";
-            echo "<ul class='habilidades'>";    
-                foreach ($pokeArray['abilities'] as $ability) {
-                    echo "<li>" . $ability . "</li>";
-                }
-            echo "</ul>";
+        echo "<h3>" . $pokeArray['name'] . "</h3>";
+        echo "<h4>ID Pokemon " . $pokeArray['id'] . "</h4>";
+        echo "<div class='tipos-pokemon'>";
+        foreach ($pokeArray['types'] as $type) {
+            echo "<span>" . $type . "</span>";
+        }
         echo "</div>";
+        echo "<ul class='habilidades'>";
+        foreach ($pokeArray['abilities'] as $ability) {
+            echo "<li>" . $ability . "</li>";
+        }
+        echo "</ul>";
+        echo "</div>";
+        echo "</div>";
+    }
     echo "</div>";
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -65,27 +59,7 @@ function renderCards($pokeArray)
 
 <body>
     <h1>PokeCartas</h1>
-
-    <section id="pokecartas">
-        <div class="carta">
-            <div class="img-container">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="pikachu">
-            </div>
-            <div class="datos">
-                <h3>Pikachu</h3>
-                <div class="tipos-pokemon">
-                    <span>eléctrico</span>
-                    <span>otro más</span>
-                </div>
-                <ul class="habilidades">
-                    <li>impactrueno</li>
-                    <li>chispitas</li>
-                </ul>
-            </div>
-        </div>
-
-    </section>
-    <?php renderCards($pokemon) ?>
+    <?php renderCards(); ?>
 </body>
 
 </html>
