@@ -70,6 +70,8 @@ h1{
     animation: 10s rotate linear infinite;
 }
 
+/* probar con el ::after */
+
 @keyframes rotate {
 	to {
 		--angle: 360deg;
