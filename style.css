@@ -3,6 +3,37 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+    margin:0;
+    padding:0;
+    background-image: radial-gradient(circle, grey, black);
+}
+
+@font-face {
+    font-family: 'Letras Pokemon';
+    src: url('Pokemon\ Solid.ttf') format('woff2'),
+         url('Pokemon\ Solid.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+h1{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    margin:0;
+    padding:20px;
+    font-size: 40px;
+    font-family: 'Letras Pokemon', sans-serif;
+    color: yellow;
+    text-shadow:
+        3px 3px 0 blue,
+        -3px -3px 0 blue,
+        3px -3px 0 blue,  
+        -3px 3px 0 blue; 
+}
+
+/* Caja contenedoras de cartas */
 .caja {
     display: flex;
     align-items: center;
@@ -16,8 +47,6 @@
     margin: 20px;
     border-radius: 12px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-
-
 }
 
 .img-container {
@@ -25,17 +54,45 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* background-color: #f0f0f0; */
     border-radius: 12px;
     border: 1px solid #e5e5e5;
+    background-image: radial-gradient(circle, darkgrey, grey);
 
+}
+.shinyimg{
+    display:flex;
+    justify-content: center;
+}
+.esshiny{
+	border: 5px solid;
+	border-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1;
+	border-radius: 12px;
+    animation: 10s rotate linear infinite;
+}
+
+@keyframes rotate {
+	to {
+		--angle: 360deg;
+	}
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+
+img{
+    width: 100px;
+    height: 100px;
 }
 
 .tipos-pokemon {
     display: flex;
-    gap: 8px;
-
+    align-items: center;
+    justify-content: center;
+    gap:5px;
     span {
         background-color: #aaa;
         border-radius: 24px;
@@ -44,3 +101,105 @@
         padding: 4px 8px;
     }
 }
+
+h3,h4{
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.habilidades{
+    height: 100px;
+}
+
+.fire {
+    background-color: #f5a3a3;
+}
+
+.grass {
+    background-color: #a8d5ba;
+}
+
+.water {
+    background-color: #a2c8e3;
+}
+
+.electric {
+    background-color: #f3e06e;
+}
+
+.bug {
+    background-color: #b5e29b;
+}
+
+.fighting {
+    background-color: #d68a8a;
+}
+
+.psychic {
+    background-color: #d1aad3;
+}
+
+.poison {
+    background-color: #d1aad3;
+}
+
+.normal {
+    background-color: #d8d8d8;
+}
+
+.dark {
+    background-color: #666666;
+}
+
+.dragon {
+    background-color: #6e7fb1;
+}
+
+.ghost {
+    background-color: #7c6ea6;
+}
+
+.fairy {
+    background-color: #f7c2e0;
+}
+
+.ice {
+    background-color: #b2e0f7;
+}
+
+.rock {
+    background-color: #cfa689;
+}
+
+.steel {
+    background-color: #c0c0c0;
+}
+
+.fly {
+    background-color: #a9c8e7;
+}
+
+
+
+/* Botón generar pokemones nuevos */
+.boton{
+    display:flex;
+    justify-content: center;
+}
+.botongenerar{
+    display:flex;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border:1px solid black;
+    padding: 10px;
+    background-color: red;
+    color:black;
+}
+
